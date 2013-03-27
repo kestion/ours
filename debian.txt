@@ -1,0 +1,93 @@
+onjour,
+Si windows est déjà installé sur ton laptop il faudra réduire la patition qui contient le système windows : pour mon laptop acer d'origine il y avait trois partition :
+une pour restauter le sytème (partition cachée pour les windowsiens)
+une deuxième qui contenait le système windows
+une troisième qui servait à mettre des données.
+J' ai réduis la troisième partition à 10 Gb cela me donnait une soixantaine de Gb pour linux.
+Pour modifier les partitions ils existe les logiciels gparted, qparted sous linux.
+ils se trouve (entre autre dans le liveCD KNOPIX)
+Perso après avoir passé un bon moment à lire les conseils sur la toile j'ai choisis le CD d'installation Mandriva (mandriva-mini-2007) mais je crois que le dernier CD fait live et installation ? Ce qui est bien avec mandriva c'est qu'il t'empèche de casser ton système.
+Quand tu as fini la réduction de la partition au lieu de continuer tu stop la machine.
+Puis tu redémarre sur le CD 1 debian STABLE (c'est lenny) et après cela est assez facile bien que tu as intérêt avant de commencer à voir comment tu vas partitionner pour debian et quel système de fichier tu vas choisir. Perso j'ai choisis reiserfs mais il paraît que le système ext3 est mieux dan le sens où il est maintenu activement ce qui n'est pas le cas de reiserfs ? (et on peut le transformer ext3 en ext4 ...)
+Pour le dual boot tu as lilo ou grub. Lilo marche bien mais grub est plus récent et bien que plus complexe que lilo il est plus facile pour l'utilisateur.
+
+Remarque:
+Le CD-1 suffit pour installer debian, pour installer les logiciels qui sont sur tous les CD il suffit de régler correctement ton sources.list et d'installer les logiciels que tu veux avec la commande: sudo apt-get install un-logiciel (en étant connecté sur la toile ...)
+
+J'espère t'avoir fait gagner un peu de temps.
+Bon courage. 
+
+bon je viens de passer ma deuxieme journée avec Vista, sur un portable, et je rends compte de la méthode que j'ai suivi pour avoir aussi ma Debian preférée en dual boot sur le même disque.
+
+je pars de la situation d'un Vista déjà installé et déjà fonctionnel sur un disque dur entier.
+
+dans mon cas:
+1ere partition : une partition au format inconnu qui permet à mon portable de sauvegarder quelques trucs système et donnés relatives à l'installation vista : on y touche pas
+2eme partition: la partition vista proprement dite
+3eme partition: la partition data associé à mon système.
+
+je souhaite detruire la 3ieme partition et diminuer la 2eme partition, pour laisser de la place un joli Linux Debian.
+
+
+( Si le Vista a déjà fonctionné et marché quelques semaine, il est judicieux de lancer une defragmentation sur la partition Vista que je vais réduire.
+Panneau de configuration >> Systeme et Maintenance >> Outils d'Administration >> Defragmenter votre disque dur. )
+
+Après vous etre assurés que les partitions à détruires sont vides de vos données qui seront effacés, et que votre partition à réduire est défragmentée :
+
+Mise en place du partitionnement :
+Panneau de configuration >> Systeme et Maintenance >> Outils d'Administration >> Créer et formater des partitions de disque dur.
+
+après avoir selectionné click-gauche les partitions à détruire, vous les détruiser sur la suggestion du click-droit "supprimer le volume"
+
+après avoir selectionné click gauche la partition vista à redimensionner, vous les réduisez sur le click droit "reduire le volume", et choisissez la nouvelle taille de votre environnement. soyez pas avare non plus, faut que votre vista puisse avoir de quoi s'amuser plus tard.
+
+
+à ce stade la place est nette pour installer debian.
+récuperez votre CD d'install préféré, et faites l'installation sur l'espace libre dont vous diposez sur le disque.
+
+prennez bien garde lors de l'installation à ne pas installer GRUB sur la mbr c'est à dire hda0 ou sda0... installez le sur le dev/sdxx ou hdxx de votre installation Linux, cependant si vous utilisez un deuxieme disque je pense que y'a aucun probleme à mettre GRUB sur le mbr de ce disque.
+un fois l'install de debian effectuée, rebootez.
+
+si vous avec un disque de boot, ou une disquette de boot utilisez là, mais le CD d'install de debian suffit, au lieu de lancer installgui ou install, vous lancer la commande rescue, ou rescue gui.
+le seul but étant de se logger en root sur votre systeme Linux debian tout neuf. chez moi je me log en rescue mode sur sda5 ou j'ai installé debian et grub.
+
+une fois loggé en root:
+montez une clef usb: mount -t /dev/sdb1 /mnt/usbkey
+( il faut s'assurer que /mnt/usbkey existe et le créer le cas échéant avec un mkdir /mnt/usbkey )
+( c'est sdb1 dans mon cas, mais cela peut etre sda1 si vous avez que des periphériques IDE, ou sdc, si vous avez deux periphériques sata ou scsi)
+
+on va récuperer le MBR de notre nouvelle instalation debian dans un fichier qui va s'appeller debianmbr sur la clef usb:
+
+dd if=/dev/sda5 of=/mnt/usbkey/debianmbr bs=512 count=1
+
+c'est sda5 dans mon cas, car c'est la partition où j'ai installé GRUB et ma partition /...
+
+voilà c'est ok, on retourne sous vista.
+
+
+d'abord on copie de le fichier debianmbr de la clef sous c:/
+donc on se retrouve avec le fichier c:/debianmbr
+
+ensuite on click-droit sur Invite de Commande ( le logiciel / fenetre de commande style Dos de windows ), afin de la lancer avec les droits administrateur.
+
+tappez les commandes suivante, en remplacant {ID} par le chiffre innomable que vous retourne la premiere commande bcdedit /create /d "Linux" /application BOOTSECTOR
+ça ressemble à ça: {5189b25c-5558-4bf2-bca4-289b11bd29e2}
+
+1. bcdedit /create /d "Linux" /application BOOTSECTOR
+2. bcdedit /set {ID} device boot
+3. bcdedit /set {ID} PATH \debianmbr
+4. bcdedit /displayorder {ID} /addlast
+5. bcdedit /timeout 5
+
+et voilà !
+
+au reboot vista vous propose une entrée vista et Linux
+
+rappel:
+si vous utilisez LILO, mettez à jour le fichier debianmbr après chaque commande lilo que vous executez pour prendre en compte un nouveau noyau à lancer... sinon windows ne reconnaitra plus lilo.
+
+
+
+bon j'espere que j'ai su résumer comme il faut.
+
+have fun. :smt026 :smt101 :smt035
