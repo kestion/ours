@@ -39,11 +39,6 @@
 	$logistics = get_menus('logistics', 'label');
 	$memories = get_menus('memories', 'label');
 	$us = get_menus('us', 'label');
-	var_dump(count($multimedia));
-	for($i=0; $i<=8; $i++){
-		var_dump($multimedia);
-	}
-
 	include 'main.html';
 
 ?>

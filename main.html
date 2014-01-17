@@ -37,9 +37,11 @@
 				 <div class="music">
 				 	<div id="ul_music" class="inner_ul">
 				 		<ol>
-				 			<li><?php 
-				 				var_dump(count($multimedia));
-				 			?></li>
+				 			<?php foreach($multimedia as $k => $v){?>
+					 			<li id ="multimedia<?php echo $k; ?>">
+					 				<?php echo $v; ?> 
+								</li><?php }
+				 			?>
 				 			<!--<li id="music0a">To Come : Music</li>
 				 			<li id="music0b">To Come : Video Games</li>
 				 			
@@ -63,7 +65,12 @@
 				 <div class="video">
 				 	<div id="ul_video" class="inner_ul">
 				 		<ol>
-				 			<li id="video0a">To Come : Movies</li>
+				 			<?php foreach($logistics as $k => $v){?>
+					 			<li id ="logistics<?php echo $k; ?>">
+					 				<?php echo $v; ?> 
+								</li><?php }
+				 			?>
+				 			<!--<li id="video0a">To Come : Movies</li>
 				 			<li id="video0b">To Come : Books</li>
 				 			
 				 			<li id="video1">Gonger</li>
@@ -81,14 +88,19 @@
 				 			<li id="video4">Valhalla Rising</li>
 				 			<li id="video4">Julien Donkey Boy</li>
 				 			<li id="video4">Precious</li>
-				 			<li id="video4">The Art of Flight</li>
+				 			<li id="video4">The Art of Flight</li> -->
 				 		</ol>
 				 	</div>
 				 </div>	
 				 <div class="moment">
 				 	<div id="ul_moment" class="inner_ul">
 				 		<ol>
-				 			<li id="moment0">To Come</li>
+				 			<?php foreach($memories as $k => $v){?>
+					 			<li id ="memories<?php echo $k; ?>">
+					 				<?php echo $v; ?> 
+								</li><?php }
+				 			?>
+				 			<!--<li id="moment0">To Come</li>
 
 				 			<li id="moment1">14th of July</li>
 				 			<li id="moment2">We finished Catherine</li>
@@ -108,19 +120,24 @@
 				 			<li id="moment8">Pizza Hut Cookie</li>
 				 			<li id="moment8">First Restaurant</li>
 				 			<li id="moment8">Hidden Fête forraine</li>
-				 			<li id="moment8">Cupcakes</li>
+				 			<li id="moment8">Cupcakes</li> -->
 				 		</ol>
 				 	</div>
 				 </div>
 				 <div class="image">
 				 	<div id="ul_image" class="inner_ul">
 				 		<ol>
-				 			<li id="image0">To come</li>
+				 			<?php foreach($us as $k => $v){?>
+					 			<li id ="us<?php echo $k; ?>">
+					 				<?php echo $v; ?> 
+								</li><?php }
+				 			?>
+				 			<!--<li id="image0">To come</li>
 				 			
-				 			<li id="image1">Kitty Cat</li>
+				 			 <li id="image1">Kitty Cat</li>
 				 			<li id="image2">Bouh</li>
 				 			<li id="image3">US</li>
-				 			<li id="image4">Sow</li>
+				 			<li id="image4">Sow</li> -->
 				 		</ol>
 				 	</div>	
 				 </div>	&nbsp; <div class="clear"> </div>
@@ -129,33 +146,12 @@
 			 <div id="content_contain"> 
 				 <div class="music">	
 				 	<div class="inner_content">
-					 	<div id="music_1">Kyary Pamyu Pamyu</div>
-					 	<div id="music_2">Music 2</div>
-					 	<div id="music_3">Music 3</div>
+				 		<?php foreach($multimedia as $k => $v){ ?>
+					 	<div id="multimedia<?php echo $k; ?>">Kyary Pamyu Pamyu</div>
+					 	<?php } ?>
 					 </div>
 				 </div>
-				 <div class="video">	
-				 	<div class="inner_content">
-					 	<div id="video_1">video 1</div>
-					 	<div id="video_2">video 2</div>
-					 	<div id="video_3">video 3</div>
-					 </div>
-				 </div>
-				 <div class="moment">	
-				 	<div class="inner_content">
-					 	<div id="moment_1">Moment 1</div>
-					 	<div id="moment_2">Moment 2</div>
-					 	<div id="moment_3">Moment 3</div>
-					 </div>
-				 </div>
-				 <div class="image">
-				 	<div class="inner_content">
-					 	<div id="image_1">image 1</div>
-					 	<div id="image_2">image 2</div>
-					 	<div id="image_3">image 3</div>
-					 </div>
-				 </div>
-		</div>
+			</div>
 			 
 			  <div class="clear"> </div>
 		
